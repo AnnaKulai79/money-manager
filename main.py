@@ -1,7 +1,17 @@
 def add_item():
     name_produkt = input("Введіть назву товару: ").capitalize()
-    count_produkt = int(input("Введіть кількість: "))
-    price_produkt = float(input("Введіть ціну за одиницю: "))
+    while True:
+        try:
+            count_produkt = int(input("Введіть кількість: "))
+            break
+        except Exception:
+            print("Це не ціле число. Спробуй ще!")
+    while True:
+        try:
+            price_produkt = float(input("Введіть ціну за одиницю: "))
+            break
+        except Exception:
+            print("Це не число. Спробуй ще!")
     print(f"✅ {name_produkt} додано до списку!")
     return {"name": name_produkt, "count": count_produkt, "price": price_produkt}
 
@@ -28,8 +38,8 @@ def load_file(sh_lst, file_path):
     if sh_lst != []:
         ans = input("Додати дані до існуючого списку*(y/n)?")
         if ans == "n":
-            ans = input("Ваш поточний список буде знищено(y/n)?")
-            if ans == "":
+            ans = input("Ваш поточний список буде знищено(y/n)?").lower()
+            if ans != "n":
                 sh_lst = []
     sh_l = []
     with open(file_path, "r") as f: # r ==> open for reading
